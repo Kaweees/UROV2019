@@ -19,12 +19,12 @@ DEBUG_LOGGING = False  # Not yet implemented
 DEBUG_CHANNELS = {
     "camera_verbose": False,
 
-    "controller": False,
+    "controller": True,
     "controller_error": True,
     "controller_event": False,
     "controller_verbose": False,
-    "controls_reader": True,
-    "controls_reader_verbose": True,
+    "controls_reader": False,
+    "controls_reader_verbose": False,
     "control_mappings": False,
     "control_mappings_verbose": False,
 
@@ -54,7 +54,7 @@ DEBUG_CHANNELS = {
 
     "int_temp_mon": True,
 
-    "motor_control": False,
+    "motor_control": True,
     "motor_control_verbose": False,
 
     "profiling_avg": False,
@@ -83,7 +83,7 @@ DEBUG_CHANNELS = {
     "serial_verbose": False,
     "serial_sim": False,
 
-    "serial_packet": False,
+    "serial_packet": True,
 
     "simulation": False,
     "simulation_verbose": False,
@@ -91,7 +91,8 @@ DEBUG_CHANNELS = {
     "sleep": True,
 
     "sockets": True,
-    "sockets_client": True,
+    
+    "sockets_client": False,
     "sockets_server": True,
     "sockets_error": True,
     "sockets_warning": True,
@@ -99,10 +100,10 @@ DEBUG_CHANNELS = {
     "sockets_status": False,
     "sockets_verbose": False,
 
-    "sockets_send": False,
+    "sockets_send": True, #this was false, not sure what they do, (next 3 also
     "sockets_send_verbose": False,
 
-    "sockets_receive": False,
+    "sockets_receive": True,
     "sockets_receive_verbose": False,
 
     "telemetry_verbose": True,
@@ -137,8 +138,8 @@ GUI_channels = {
 
 # XBox Controller
 USE_CONTROLLER = True
-REQUIRE_CONTROLLER = False
-SIMULATE_INPUT = True
+REQUIRE_CONTROLLER = True
+SIMULATE_INPUT = False
 CONTROLLER_NAME = "topside_xbox_controller"
 CONTROLLER_INIT_TICK_RATE = 1
 CONTROLLER_TICK_RATE = 30  # Hz (Times per second)
@@ -190,8 +191,8 @@ NUM_MOTORS = 6
 MOTOR_MAX_DELTA = 5
 
 # Sockets Connection
-TOPSIDE_IP = "10.0.10.10"
-ROBOT_IP = "10.0.10.11"
+TOPSIDE_IP = "localhost" #"10.0.10.10"
+ROBOT_IP = "localhost" #"10.0.10.11"
 SOCKETS_SERVER_TIMEOUT = 640
 SOCKETS_CLIENT_TIMEOUT = 4
 SOCKETS_OPEN_ATTEMPTS = 10  # Maximum number of times to try creating a socket
@@ -230,7 +231,7 @@ TELEMETRY_DATA_NAME = "telemetry_data"
 
 
 # Serial Connection
-SIMULATE_SERIAL = True
+SIMULATE_SERIAL = False
 SERIAL_BAUD = 115200  # Serial Baudrate
 SERIAL_MAX_ATTEMPTS = 4  # Maximum number of times to try openeing serial port
 SERIAL_RETRY_WAIT = 0.5  # Time to wait before retrying serial connection

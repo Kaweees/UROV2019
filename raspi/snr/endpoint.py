@@ -10,6 +10,7 @@ class Endpoint:
         self.name = name
 
     def get_new_tasks(self) -> SomeTasks:
+        print("in endpoint->get_new_tasks ")
         return None
 
     def task_handler(self, t: Task) -> SomeTasks:

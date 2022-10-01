@@ -16,11 +16,11 @@ class Node:
         self.dbg = debugger.debug
         self.role = role
         self.mode = mode
-        self.task_queue = deque()
+        self.task_queue = deque() #deque is a type collection
         self.datastore = Datastore(self.dbg)
 
-        self.endpoints = []
-        self.task_producers = []
+        self.endpoints = [] #list that will get filled with factories 
+        self.task_producers = []#list that will get filled with task_producers
 
         self.profiler = None
         if settings.ENABLE_PROFILING:
@@ -34,8 +34,10 @@ class Node:
         self.dbg("framework",
                  "Initialized with  {} endpoints",
                  [len(self.endpoints)])
-
+#gets each of the factories, which seems to be anything that can generate tasks, and consolidates them
+        #in this list. asks each of the endpoints for their things 
     def add_endpoints(self, factories: List):
+        print("in node-> add_endpoints ")
         self.dbg("framework_verbose", "Adding {} components", [len(factories)])
         for f in factories:
             endpoint = f.get(self)
@@ -95,20 +97,25 @@ class Node:
                 self.dbg("schedule_new_tasks",
                          "Produced task: {} from {}",
                          [t, task_producer.__module__])
+                ##print("in node-> get_new_tasks")
                 self.schedule_task(t)
-
+                
+#takes a task from the task_queue that is given by get_next_task
     def execute_task(self, t: Task):
         """Execute the given task
 
         Note that the task is pass in and can be provided on the fly rather
         than needing to be in the queue.
         """
+        ##print("in node-> execute_task")
+        
         if not t:
             self.dbg("execute_task", "Tried to execute None")
             return
 
         task_result = []
-
+        
+#execute task is pulling from endpoints and running through task_handlers in task
         for e in self.endpoints:
             handler = e.task_handlers.get(t.task_type)
             result = None
@@ -125,6 +132,8 @@ class Node:
                  "Task execution resulted in {} new tasks",
                  [len(list(task_result))])
         if task_result:
+            ##print("in node-> execute, if task result")
+            ##print(task_result)
             # Only procede if not empty
             self.schedule_task(task_result)
 
@@ -148,9 +157,13 @@ class Node:
         self.dbg("framework", "Node terminated")
 
     def step_task(self):
+        #print("in node->step_task ")
         # Get the next task to execute
         t = self.get_next_task()
+        ##print("in completed get.nexttak ")
         self.execute_task(t)
+        ##print("in completed execute task ")
+        
 
     def has_tasks(self) -> bool:
         """Report whether there are enough tasks left in the queue
@@ -180,6 +193,7 @@ class Node:
             return
 
         if not isinstance(t, Task):
+            ##print("in node->schedule task ")
             # Handle non task objects
             self.dbg("schedule_warning",
                      "Cannot schedule {} object {}", [type(t), t])
@@ -197,10 +211,11 @@ class Node:
         else:
             self.dbg("schedule", "Cannot schedule task with priority: {}",
                      [t.priority])
-
+#returns either talk
     def get_next_task(self) -> Union[Task, None]:
         """Take the next task off the queue
         """
+        ##print("in node->get next task ")
         while not self.has_tasks():
             self.dbg("schedule_event", "Ran out of tasks, getting more")
             self.get_new_tasks()
@@ -224,3 +239,4 @@ class Node:
         for t in self.task_queue:
             s = s + "\n\t" + str(t)
         return s
+    

@@ -51,5 +51,6 @@ class Task:
 
 SomeTasks = Union[None, Task, List]
 TaskHandler = Callable[[Task], SomeTasks]
+#look for a callable object in snr
 TaskSource = Callable[[], SomeTasks]
 TaskScheduler = Callable[[SomeTasks], None]

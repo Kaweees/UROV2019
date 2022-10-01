@@ -10,7 +10,7 @@ class SerialFactory(Factory):
         self.transmit_data_name = transmit_data_name
         self.query_data_name = query_data_name
         # TODO: Support updating Arduino firmware on startup
-        # self.firmware_path = firmware_path
+        self.firmware_path = firmware_path
 
     def get(self, parent: Node) -> Endpoint:
         from snr.comms.serial.serial_connection import SerialConnection

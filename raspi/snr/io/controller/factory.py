@@ -12,6 +12,8 @@ class ControllerFactory(Factory):
         # Wait until later to import pygame depenacy to
         #  prevent crash when not present on robot
         from snr.io.controller.controller import Controller
+        print("hello from controller factory")
+        print(Controller(parent, self.output_data_name))
         return Controller(parent, self.output_data_name)
 
     def __repr__(self):

@@ -103,7 +103,7 @@ class RobotMotors(AsyncEndpoint):
                     self.motor_values[index])
                     <= settings.MOTOR_MAX_DELTA):
                 self.motor_values[index] = self.motor_targets[index]
-
+    #---task_list.append(t)
             # Target is above current
             elif self.motor_targets[index] > self.motor_values[index]:
                 self.motor_values[index] += settings.MOTOR_MAX_DELTA

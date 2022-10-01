@@ -28,6 +28,7 @@ class Zybo(Endpoint):
 
     def get_new_tasks(self) -> SomeTasks:
         # TODO: Match serial task generation
+        print("in zybo->get_new_tasks ")
         return None
 
     def task_handler(self, t: Task) -> SomeTasks:

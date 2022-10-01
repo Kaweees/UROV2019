@@ -19,7 +19,7 @@ def get_port_to_use(dbg: Callable, set_port: Callable) -> str:
     Calls the serial_finder library to search the operating system
     for serial ports
     """
-    # port = None
+    port = None
 
     def try_find_port() -> bool:
         try:
@@ -30,7 +30,7 @@ def get_port_to_use(dbg: Callable, set_port: Callable) -> str:
             for p in ports:
                 dbg('serial_finder', p)
             # Select the port
-            port = select_port(ports)
+            port = select_port(dbg,ports)
             set_port(port)
             if(port is None):
                 raise Exception("Serial Exception")
@@ -56,7 +56,7 @@ def get_port_to_use(dbg: Callable, set_port: Callable) -> str:
             fail_once,
             failure)
 
-    # return port
+    return port
 
 
 def list_ports() -> list:

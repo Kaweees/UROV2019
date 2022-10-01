@@ -15,6 +15,7 @@ from snr.endpoint import Endpoint
 from snr.node import Node
 from snr.task import SomeTasks, Task
 from snr.utils.utils import attempt, print_exit, sleep
+from snr.utils import debug
 
 
 class SerialConnection(Endpoint):
@@ -27,19 +28,22 @@ class SerialConnection(Endpoint):
             "blink_test": self.handle_blink_test
         }
         super().__init__(parent, name)
-
+        
         if settings.SIMULATE_SERIAL:
             self.serial_connection = None
             self.simulated_bytes = None
+            self.dbg("serial_verbose", "Simulating serial")
             return
 
         self.dbg("serial_verbose", "Finding serial port")
-        get_port_to_use(self.set_port)
+        get_port_to_use(self.dbg,self.set_port)
+        print("helllllllo")
         self.dbg("serial", "Selected port {}", [self.serial_port])
 
         self.attempt_connect()
 
     def attempt_connect(self):
+        print("helllllllo2")
         def fail_once():
             self.dbg("serial_warning",
                      "Failed to open serial port, trying again.")
@@ -69,8 +73,10 @@ class SerialConnection(Endpoint):
                 sched_list.append(new_task)
 
     def handle_blink_test(self, t: Task):
-        self.serial_connection.send_receive("blink",
-                                            t.val_list)
+        print("blink test over here")
+        print(t)
+        print(self.send_receive("blink",t.val_list))
+                                            
 
     def set_port(self, port: str):
         self.dbg("serial", "Setting port to {}", [port])
@@ -91,6 +97,7 @@ class SerialConnection(Endpoint):
                 bytesize=serial.EIGHTBITS,
                 timeout=settings.SERIAL_TIMEOUT)
             if self.serial_connection.is_open:
+                print("serial conn opened")
                 self.dbg('serial',
                          "Opened serial connection on {} at baud {}",
                          [self.serial_port, settings.SERIAL_BAUD])

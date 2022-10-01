@@ -37,20 +37,27 @@ def main():
 
     debugger = Debugger()
     dbg = debugger.debug
-
+    
+    print("in main->controls link ")
     # Connections between devices
     # Ethernet tether link for control data
     controls_link = EthernetLink(settings.CONTROLS_SOCKETS_CONFIG.port,
                                  settings.CONTROLS_DATA_NAME)
+    print("in main->telemetrty ")
     # Ethernet tether link for telemetry data
     telemetry_link = EthernetLink(settings.TELEMETRY_SOCKETS_CONFIG.port,
                                   settings.TELEMETRY_DATA_NAME)
+    print("in main->robot controls ")
     # Controls and motor processing
     robot_controls = RobotControlsFactory(settings.CONTROLS_DATA_NAME,
                                           "thruster_data")
+    
+    print("in main->gui ")
     # GUI
     GUI = GUIFactory([settings.CONTROLS_DATA_NAME,
                       settings.TELEMETRY_DATA_NAME])
+    
+    print("in main->zynq ")
     # XBox Controller
     # Zynq Zybo Z7-20: replaces serial link
     zynq_link = ZyboFactory("motor_data", "sensor_data")
@@ -75,7 +82,7 @@ def main():
         # "usb_camera10": 12,
     })
 
-    components = []
+    components = [] #components are things that can generate a task
     if role.__eq__("topside"):
         components = [controls_link.server,
                       telemetry_link.client,
@@ -97,7 +104,7 @@ def main():
                       zynq_link
                       ]
 
-    node = Node(debugger, role, mode, components)
+    node = Node(debugger, role, mode, components)#initalizes the pi as what you want it to be.
     # Run the node's loop
     try:
         node.loop()

@@ -6,7 +6,7 @@ https://www.pygame.org/docs/ref/joystick.html
 import random
 from typing import Tuple, Union
 
-# import pygame
+import pygame
 
 import settings
 from snr.async_endpoint import AsyncEndpoint

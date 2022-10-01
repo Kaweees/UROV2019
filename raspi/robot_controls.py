@@ -71,6 +71,7 @@ class ControlsProcessor(Endpoint):
         # Pitch cannot be acheived with current motor configuration
 
     def get_new_tasks(self) -> SomeTasks:
+        ##print("in robot_controlls->get_new_tasks ")
         return Task("get_controls_data", TaskPriority.high, [])
 
     def task_handler(self, t: Task) -> SomeTasks:
@@ -91,6 +92,7 @@ class ControlsProcessor(Endpoint):
         return self.receive_controls(controls_data)
 
     def get_throttle_data(self):
+        print(self.throttle)
         return self.throttle
 
     def receive_controls(self, incoming_controls: dict) -> SomeTasks:
@@ -145,11 +147,21 @@ class ControlsProcessor(Endpoint):
         kinds of control values, process_throttle() is called.
         """
         # TODO: Create task for different control inputs
+        #old code{
+#         new_task = None
+#         if "stick" in key or "trigger" in key:
+#             self.process_throttle(key, value)
+#         elif "button" in key:
+#             self.process_button(key, value)
+#             print("button")
+#         return new_task
+#   }
         new_task = None
         if "stick" in key or "trigger" in key:
-            self.process_throttle(key, value)
+            new_task= self.process_throttle(key, value)
         elif "button" in key:
-            self.process_button(key, value)
+            new_task= self.process_button(key, value)
+            print("button")
         return new_task
 
     def process_throttle(self, key: str, val):
@@ -224,7 +236,8 @@ class ControlsProcessor(Endpoint):
             if self.button_pressed('a'):
                 pass
             elif self.button_released('a'):
-                pass
+                return Task("blink_test", TaskPriority.high,[0,0])
+                #pass
 
         elif "button_b" in key:
             self.store_button('b', val)

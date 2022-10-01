@@ -114,12 +114,12 @@ class SimpleGUI(AsyncEndpoint):
                 relief=sg.RELIEF_SUNKEN)]]
         if settings.GUI_channels["telem"]:
             layout += [
-                # [sg.Frame(layout=[[sg.Text('Stick Left X: \n0\nStick Left Y: \n0\nLeft Trigger: \n0\n', size=(20, 6),
-                #                            justification='center', key='left'),
-                #                    sg.Text('Stick Right X: \n0\nStick Right Y: \n0\nRight Trigger: \n0\n', size=(20, 6),
-                #                            justification='center', key='right')]], title='Control Data',
-                #           title_color='Black', relief=sg.RELIEF_SUNKEN)],
-                # [sg.Text('Refresh Rate', size=(45, 2), justification='center')]
+#                  [sg.Frame(layout=[[sg.Text('Stick Left X: \n0\nStick Left Y: \n0\nLeft Trigger: \n0\n', size=(20, 6),
+#                                             justification='center', key='left'),
+#                                     sg.Text('Stick Right X: \n0\nStick Right Y: \n0\nRight Trigger: \n0\n', size=(20, 6),
+#                                             justification='center', key='right')]], title='Control Data',
+#                            title_color='Black', relief=sg.RELIEF_SUNKEN)],
+#                 [sg.Text('Refresh Rate', size=(45, 2), justification='center')]
             ]
         layout += [[sg.Text(' ' * 13),
                     sg.Slider(range=(0, 50),

@@ -18,7 +18,7 @@ PACKED_FORMAT = "".join(["B" for x in range(PACKET_SIZE)])
 SET_MOT_CMD = 0x20      # set motor speed
 SET_CAM_CMD = 0x33      # set camera feed
 RD_SENS_CMD = 0x40      # request read sensor value
-BLINK_CMD = 0x80
+BLINK_CMD = 0x62 #0x80
 INV_CMD_ACK = 0xFF      # Invalid command, value2 of response contains cmd
 
 
